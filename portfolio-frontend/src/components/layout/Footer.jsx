@@ -28,7 +28,7 @@ export default function Footer() {
         >
           <GitHubIcon />
         </IconButton>
-        <IconButton href="https://twitter.com" target="_blank" color="inherit">
+        <IconButton href="https://x.com/sarcasticgoss?t=0sunJBJXQ4CFhpll8UHu4w&s=09" target="_blank" color="inherit">
           <TwitterIcon />
         </IconButton>
       </Stack>

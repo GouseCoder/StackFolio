@@ -1,7 +1,6 @@
 package com.stackfolio.auth.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,12 +13,15 @@ import com.stackfolio.auth.repository.UserRepository;
 import com.stackfolio.auth.security.JwtUtil;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {
 	
-	Logger LOGGER = LoggerFactory.getLogger(AuthService.class);
+	@Value("${app.admin.email}")
+	private String admninEmail;
 	
 	private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -37,11 +39,11 @@ public class AuthService {
                 .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.valueOf(request.getRole().toUpperCase()))
+                .role(isAdmin(request) ? Role.ADMIN : Role.AUDIENCE)
                 .build();
 
         userRepository.save(user);
-        LOGGER.info("New user registered: {}", user.getUsername());
+        log.info("New user registered: {}", user.getUsername());
         
         String token = jwtUtil.generateToken(user.getUsername(), user.getRole().name());
         return new AuthResponse(token);
@@ -57,6 +59,10 @@ public class AuthService {
 
         String token = jwtUtil.generateToken(user.getUsername(), user.getRole().name());
         return new AuthResponse(token);
+    }
+    
+	private boolean isAdmin(RegisterRequest request) {
+    	return request.getEmail().equals(admninEmail);
     }
 
 }

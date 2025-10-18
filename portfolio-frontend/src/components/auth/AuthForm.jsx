@@ -9,7 +9,7 @@ import {
   Paper,
   Link,
 } from "@mui/material";
-import { validateEmail, validatePassword } from "../utils/validation";
+import { validateEmail, validatePassword } from "../../utils/validation";
 
 const AuthForm = ({ mode, onSubmit }) => {
   const isSignup = mode === "signup";
@@ -55,7 +55,7 @@ const AuthForm = ({ mode, onSubmit }) => {
         }}
       >
         <Typography variant="h5" mb={2} fontWeight="bold">
-          {isSignup ? "Create Account" : "Welcome Back"}
+          {isSignup ? "Create Account" : "Login"}
         </Typography>
 
         {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
@@ -80,18 +80,6 @@ const AuthForm = ({ mode, onSubmit }) => {
                 onChange={handleChange}
                 margin="normal"
               />
-              <TextField
-                select
-                fullWidth
-                label="Role"
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                margin="normal"
-              >
-                <MenuItem value="ADMIN">Admin</MenuItem>
-                <MenuItem value="AUDIENCE">Audience</MenuItem>
-              </TextField>
             </>
           )}
           <TextField

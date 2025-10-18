@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 
 export default function useAuth() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // 👈 new
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -11,12 +12,13 @@ export default function useAuth() {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        setUser(decoded); // JWT has 'sub' as username
+        setUser(decoded);
       } catch (err) {
         console.error("Invalid token");
         localStorage.removeItem("token");
       }
     }
+    setLoading(false); 
   }, []);
 
   const logout = () => {
@@ -25,5 +27,5 @@ export default function useAuth() {
     navigate("/");
   };
 
-  return { user, logout };
+  return { user, loading, logout };
 }

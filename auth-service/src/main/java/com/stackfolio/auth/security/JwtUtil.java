@@ -21,7 +21,7 @@ public class JwtUtil {
 //    private long expTime;
 	
 	private static final String secret = "my-very-secure-and-long-secret-key-123456";
-    private static final long expTime = 1000 * 60 * 60; // 1 hour
+    private static final long expTime = 1000 * 60 * 60 * 24; // 1 day
 
     private final Key key = Keys.hmacShaKeyFor(secret.getBytes());
 

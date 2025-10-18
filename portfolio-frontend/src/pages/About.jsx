@@ -3,7 +3,7 @@ import { Container, Typography, Box, Grid, Chip, Divider } from "@mui/material";
 
 const skills = {
   backend: ["Java", "Spring Boot", "REST APIs", "Microservices"],
-  frontend: ["React", "JavaScript", "HTML5", "CSS3", "TailwindCSS", "MUI"],
+  frontend: ["React", "JavaScript", "HTML5", "CSS3", "MUI"],
   database: ["MySQL", "MongoDB"],
   tools: ["Git", "Docker", "Postman", "CI/CD"],
 };

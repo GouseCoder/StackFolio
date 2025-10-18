@@ -1,5 +1,5 @@
 import { Box, Typography, Button, Grid, Avatar } from "@mui/material";
-import profilePic from "../assets/images/profile.jpg";
+import profilePic from "../../assets/images/profile.jpg";
 
 export default function IntroSection({ onResumeClick }) {
   return (

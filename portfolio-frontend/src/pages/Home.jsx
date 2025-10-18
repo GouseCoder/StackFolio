@@ -1,7 +1,7 @@
 import { Box, Container } from "@mui/material";
-import IntroSection from "../components/IntroSection";
-import AboutSection from "../components/AboutSection";
-import HighlightedProjects from "../components/HighlightedProjects";
+import IntroSection from "../components/sections/IntroSection";
+import AboutSection from "../components/sections/AboutSection";
+import HighlightedProjects from "../components/sections/HighlightedProjects";
 
 export default function Home() {
   const handleResumeClick = (e) => {

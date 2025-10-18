@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Paper, Grid, Typography } from "@mui/material";
-import AuthForm from "../components/AuthForm";
+import AuthForm from "../components/auth/AuthForm";
 import { loginUser } from "../apis/auth";
 
 const LoginPage = () => {

@@ -1,6 +1,7 @@
 package com.stackfolio.blog.dto;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -19,6 +20,7 @@ public class BlogPostDto {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private List<CommentDto> comments;
+    @Builder.Default
+    private List<CommentDto> comments = new ArrayList<>();
 
 }

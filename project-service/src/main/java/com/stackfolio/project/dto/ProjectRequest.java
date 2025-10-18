@@ -14,15 +14,10 @@ import lombok.NoArgsConstructor;
 public class ProjectRequest {
 	
     private String title;
-
     private String description;
-
     private List<String> technologies;
-
     private String githubUrl;
-
     private String liveDemoUrl;
-
     private String imageUrl;
 
 }
