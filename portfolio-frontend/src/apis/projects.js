@@ -1,7 +1,8 @@
 // src/apis/projects.js
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8083/api/projects";
+// const BASE_URL = "http://localhost:8083/api/projects";
+const BASE_URL = process.env.PRODUCT_SERVICE_URL
 
 export const getProjects = async () => {
   const response = await axios.get(BASE_URL);

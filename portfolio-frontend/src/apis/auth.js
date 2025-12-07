@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8081";
+// const API_BASE_URL = "http://localhost:8081";
+const API_BASE_URL = process.env.USER_SERVICE_URL
+
 
 export const registerUser = async (data) => {
   try {
