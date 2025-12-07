@@ -16,11 +16,16 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtil {
 
 	@Value("${jwt.secret}")
-	private String secret;
-	
+    private String secret;
+
     private static final long expTime = 1000 * 60 * 60 * 24; // 1 day
 
-    private final Key key = Keys.hmacShaKeyFor(secret.getBytes());
+    private Key key;
+
+    @PostConstruct
+    public void init() {
+        key = Keys.hmacShaKeyFor(secret.getBytes());
+    }
 
     public String generateToken(String username, String role) {
         return Jwts.builder()
