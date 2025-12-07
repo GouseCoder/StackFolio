@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { GitHub, Launch, Edit, Delete } from "@mui/icons-material";
 import useAuth from "../hooks/useAuth";
+import { getProjectById, deleteProject } from "../apis/projects";
 
 export default function ProjectDetails() {
   const { id } = useParams();
@@ -27,7 +28,7 @@ export default function ProjectDetails() {
   const isAdmin = user?.role === "ADMIN";
 
   useEffect(() => {
-    if (authLoading) return; // wait until auth is loaded
+    if (authLoading) return;
 
     const token = localStorage.getItem("token");
     if (!token) {
@@ -35,38 +36,28 @@ export default function ProjectDetails() {
       return;
     }
 
-    const fetchProject = async () => {
+    async function loadProject() {
       try {
-        const response = await fetch(`http://localhost:8083/api/projects/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (!response.ok) throw new Error("Failed to load project details");
-        const data = await response.json();
+        const data = await getProjectById(id, token);
         setProject(data);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "Failed to load project");
       } finally {
         setLoading(false);
       }
-    };
+    }
 
-    fetchProject();
-  }, [id, navigate, authLoading]);
+    loadProject();
+  }, [id, authLoading, navigate]);
 
+  // DELETE HANDLER
   const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this project?")) return;
+    if (!window.confirm("Are you sure you want to delete this project?"))
+      return;
 
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch(`http://localhost:8083/api/projects/${id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      if (!response.ok) throw new Error("Failed to delete project");
+      await deleteProject(id, token);
       alert("Project deleted successfully");
       navigate("/projects");
     } catch (err) {
@@ -93,34 +84,67 @@ export default function ProjectDetails() {
       <Container maxWidth="md">
         <Paper
           elevation={6}
-          sx={{ borderRadius: 4, overflow: "hidden", p: { xs: 3, md: 5 }, backgroundColor: "#fff", boxShadow: "0 10px 30px rgba(0,0,0,0.1)" }}
+          sx={{
+            borderRadius: 4,
+            overflow: "hidden",
+            p: { xs: 3, md: 5 },
+            backgroundColor: "#fff",
+            boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+          }}
         >
           {project?.imageUrl && (
             <CardMedia
               component="img"
               image={project.imageUrl}
               alt={project.title}
-              sx={{ borderRadius: 3, mb: 4, height: 350, objectFit: "cover", boxShadow: "0 8px 24px rgba(0,0,0,0.15)" }}
+              sx={{
+                borderRadius: 3,
+                mb: 4,
+                height: 350,
+                objectFit: "cover",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+              }}
             />
           )}
 
-          <Typography variant="h4" fontWeight="bold" sx={{ mb: 2, color: "#1f2937", letterSpacing: 0.5 }}>
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            sx={{ mb: 2, color: "#1f2937", letterSpacing: 0.5 }}
+          >
             {project.title}
           </Typography>
 
           <Divider sx={{ mb: 3, borderColor: "#e5e7eb" }} />
 
-          <Typography variant="body1" color="text.secondary" sx={{ mb: 4, lineHeight: 1.8, fontSize: "1.05rem" }}>
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{ mb: 4, lineHeight: 1.8, fontSize: "1.05rem" }}
+          >
             {project.description}
           </Typography>
 
           {/* Technologies */}
-          <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ mb: 5 }} justifyContent="flex-start">
+          <Stack
+            direction="row"
+            spacing={1}
+            flexWrap="wrap"
+            sx={{ mb: 5 }}
+            justifyContent="flex-start"
+          >
             {project.technologies.map((tech, index) => (
               <Chip
                 key={index}
                 label={tech}
-                sx={{ backgroundColor: "#E0E7FF", color: "#1E3A8A", fontWeight: 600, fontSize: "0.85rem", mb: 1, "&:hover": { backgroundColor: "#C7D2FE" } }}
+                sx={{
+                  backgroundColor: "#E0E7FF",
+                  color: "#1E3A8A",
+                  fontWeight: 600,
+                  fontSize: "0.85rem",
+                  mb: 1,
+                  "&:hover": { backgroundColor: "#C7D2FE" },
+                }}
               />
             ))}
           </Stack>
@@ -133,7 +157,18 @@ export default function ProjectDetails() {
                 startIcon={<GitHub />}
                 href={project.githubUrl}
                 target="_blank"
-                sx={{ borderColor: "#3B82F6", color: "#3B82F6", textTransform: "none", px: 3, fontWeight: 600, "&:hover": { backgroundColor: "#EBF2FF", borderColor: "#2563EB", color: "#2563EB" } }}
+                sx={{
+                  borderColor: "#3B82F6",
+                  color: "#3B82F6",
+                  textTransform: "none",
+                  px: 3,
+                  fontWeight: 600,
+                  "&:hover": {
+                    backgroundColor: "#EBF2FF",
+                    borderColor: "#2563EB",
+                    color: "#2563EB",
+                  },
+                }}
               >
                 View on GitHub
               </Button>
@@ -144,7 +179,13 @@ export default function ProjectDetails() {
                 startIcon={<Launch />}
                 href={project.liveDemoUrl}
                 target="_blank"
-                sx={{ backgroundColor: "#3B82F6", textTransform: "none", px: 3, fontWeight: 600, "&:hover": { backgroundColor: "#2563EB" } }}
+                sx={{
+                  backgroundColor: "#3B82F6",
+                  textTransform: "none",
+                  px: 3,
+                  fontWeight: 600,
+                  "&:hover": { backgroundColor: "#2563EB" },
+                }}
               >
                 Live Demo
               </Button>
