@@ -1,14 +1,17 @@
 import { Box, Container } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import IntroSection from "../components/sections/IntroSection";
 import AboutSection from "../components/sections/AboutSection";
 import HighlightedProjects from "../components/sections/HighlightedProjects";
 
 export default function Home() {
+  const navigate = useNavigate();
+
   const handleResumeClick = (e) => {
     const token = localStorage.getItem("token");
     if (!token) {
       e.preventDefault();
-      window.location.href = "/login";
+      navigate("/login");
     }
   };
 
