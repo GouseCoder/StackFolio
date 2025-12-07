@@ -6,7 +6,7 @@ const SignupPage = () => {
   const handleSignup = async (formData) => {
     const res = await registerUser(formData);
     localStorage.setItem("token", res.token);
-    window.location.href = "/"; // redirect after success
+    window.location.href = "/";
   };
 
   return (
@@ -16,48 +16,67 @@ const SignupPage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#f3f4f6", // light gray background
-        p: 2,
+        backgroundColor: "#f3f4f6",
+        p: { xs: 2, sm: 3, md: 4 },
       }}
     >
       <Paper
         elevation={6}
         sx={{
-          width: "90%",
-          maxWidth: 900,
+          width: "100%",
+          maxWidth: 1000,
           borderRadius: 4,
           overflow: "hidden",
         }}
       >
-        <Grid container sx={{ height: 520 }}>
-          {/* Left side */}
+        <Grid
+          container
+          sx={{
+            minHeight: { xs: "auto", md: 550 },
+            flexDirection: { xs: "column-reverse", md: "row" },
+          }}
+        >
+          {/* Left side graphic */}
           <Grid
             item
             xs={12}
             md={6}
             sx={{
-              background: "linear-gradient(135deg, #7b1fa2, #ba68c8)", // purple gradient
+              background: "linear-gradient(135deg, #7b1fa2, #ba68c8)",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
               color: "white",
-              p: 4,
+              p: { xs: 4, sm: 6, md: 4 },
+              textAlign: "center",
             }}
           >
-            <Typography variant="h4" fontWeight="bold">
+            <Typography
+              variant="h4"
+              fontWeight="bold"
+              sx={{
+                fontSize: { xs: "1.8rem", sm: "2rem", md: "2.3rem" },
+                lineHeight: 1.2,
+              }}
+            >
               Join Us Today!
             </Typography>
+
             <Typography
               variant="body1"
-              sx={{ mt: 2, maxWidth: 320, textAlign: "center" }}
+              sx={{
+                mt: 2,
+                maxWidth: 350,
+                fontSize: { xs: "0.9rem", md: "1rem" },
+              }}
             >
               Create your account to start managing your projects and collaborate
               with me.
             </Typography>
           </Grid>
 
-          {/* Right side */}
+          {/* Right side form */}
           <Grid
             item
             xs={12}
@@ -67,7 +86,7 @@ const SignupPage = () => {
               justifyContent: "center",
               alignItems: "center",
               backgroundColor: "white",
-              p: 4,
+              p: { xs: 3, sm: 4, md: 5 },
             }}
           >
             <AuthForm mode="signup" onSubmit={handleSignup} />
