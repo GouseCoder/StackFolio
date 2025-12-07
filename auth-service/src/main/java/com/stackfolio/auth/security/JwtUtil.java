@@ -4,6 +4,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -14,13 +15,9 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtUtil {
 
-//	@Value("${jwt.secret}")
-//	private String secret;
-//	
-//	@Value("${jwt.expiration}")
-//    private long expTime;
+	@Value("${jwt.secret}")
+	private String secret;
 	
-	private static final String secret = "my-very-secure-and-long-secret-key-123456";
     private static final long expTime = 1000 * 60 * 60 * 24; // 1 day
 
     private final Key key = Keys.hmacShaKeyFor(secret.getBytes());
