@@ -4,10 +4,6 @@ import Home from "../pages/Home";
 import About from "../pages/About";
 import Projects from "../pages/Projects";
 import ProjectDetails from "../pages/ProjectDetails";
-import Blog from "../pages/Blog";
-import BlogDetail from "../pages/BlogDetail";
-import AddBlog from "../pages/AddBlog";
-import EditBlog from "../pages/EditBlog";
 import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import EditProject from "../pages/EditProject";
@@ -39,8 +35,6 @@ export default function AppRoutes() {
       <Route path="/about" element={<About />} />
       <Route path="/projects" element={<Projects />} />
       <Route path="/projects/:id" element={<ProjectDetails />} />
-      <Route path="/blogs" element={<Blog />} />
-      <Route path="/blogs/:id" element={<BlogDetail />} />
 
       {/* Auth Routes */}
       <Route
@@ -53,24 +47,6 @@ export default function AppRoutes() {
         path="/signup"
         element={
           !localStorage.getItem("token") ? <SignupPage /> : <Navigate to="/" />
-        }
-      />
-
-      {/* Protected Blog Routes */}
-      <Route
-        path="/blogs/add"
-        element={
-          <ProtectedRoute>
-            <AddBlog />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/blogs/edit/:id"
-        element={
-          <ProtectedRoute>
-            <EditBlog />
-          </ProtectedRoute>
         }
       />
 

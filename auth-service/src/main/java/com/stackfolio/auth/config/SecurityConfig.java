@@ -54,7 +54,7 @@ public class SecurityConfig {
 	    CorsConfiguration configuration = new CorsConfiguration();
 	    
 	    // Allowed origins (frontend URL(s))
-	    configuration.setAllowedOrigins(List.of("http://localhost:3000")); // Replace with your UI URL
+	    configuration.setAllowedOrigins(List.of("*"));
 	    // Allowed HTTP methods
 	    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 	    // Allowed headers

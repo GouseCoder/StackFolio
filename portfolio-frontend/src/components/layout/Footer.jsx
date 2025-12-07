@@ -18,7 +18,7 @@ export default function Footer() {
     >
       {/* Social Icons */}
       <Stack direction="row" spacing={2} justifyContent="center" mb={2}>
-        <IconButton href="https://linkedin.com" target="_blank" color="inherit">
+        <IconButton href="http://www.linkedin.com/in/mohammed-gouse-shaikh" target="_blank" color="inherit">
           <LinkedInIcon />
         </IconButton>
         <IconButton
@@ -43,9 +43,6 @@ export default function Footer() {
         </Link>
         <Link href="/projects" underline="hover" color="inherit">
           Projects
-        </Link>
-        <Link href="/blog" underline="hover" color="inherit">
-          Blog
         </Link>
       </Stack>
 

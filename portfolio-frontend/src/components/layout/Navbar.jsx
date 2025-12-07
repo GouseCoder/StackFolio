@@ -56,19 +56,6 @@ export default function Navbar() {
           <Button component={Link} to="/projects" sx={{ textTransform: "none", mx: 1, fontWeight: 500, color: "black" }}>
             Projects
           </Button>
-          <Button
-            sx={{ textTransform: "none", mx: 1, fontWeight: 500, color: "black" }}
-            onClick={() => {
-              const token = localStorage.getItem("token");
-              if (token) {
-                window.location.href = "/blogs";
-              } else {
-                window.location.href = "/login";
-              }
-            }}
-          >
-            Blog
-          </Button>
 
           {user ? (
             <>
