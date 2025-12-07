@@ -7,8 +7,9 @@ import {
   MenuItem,
   Alert,
   Paper,
-  Link,
+  Link as MuiLink,
 } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 import { validateEmail, validatePassword } from "../../utils/validation";
 
 const AuthForm = ({ mode, onSubmit }) => {
@@ -106,24 +107,26 @@ const AuthForm = ({ mode, onSubmit }) => {
         {!isSignup && (
           <Box sx={{ mt: 2 }}>
             <Typography variant="body2" color="text.secondary">
-              <Link
-                href="/forgot-password"
+              <MuiLink
+                component={RouterLink}
+                to="/forgot-password"
                 underline="hover"
                 sx={{ color: "#3B82F6", fontWeight: "bold" }}
               >
                 Forgot Password?
-              </Link>
+              </MuiLink>
             </Typography>
 
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
               Don’t have an account?{" "}
-              <Link
-                href="/signup"
+              <MuiLink
+                component={RouterLink}
+                to="/signup"
                 underline="hover"
                 sx={{ color: "#3B82F6", fontWeight: "bold" }}
               >
                 Sign up
-              </Link>
+              </MuiLink>
             </Typography>
           </Box>
         )}
